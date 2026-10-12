@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block title %}Join Us | Rotaract Club of SIMS{% endblock %}
+{% block content %}<section class="page-hero"><div class="container"><span class="eyebrow">BECOME PART OF THE TEAM</span><h1>Your ideas can create <span class="gold-text">impact.</span></h1><p>Tell us a little about yourself. The club team will review your application and follow up.</p></div></section>
+<section class="container section-pad"><div class="form-panel mx-auto"><h2>Membership application</h2><p class="muted">Fields marked with * are required.</p><form method="post">{{ form.hidden_tag() }}
+{% for field in [form.full_name, form.email, form.phone, form.course_year, form.interests] %}<div class="mb-3"><label class="form-label" for="{{ field.id }}">{{ field.label.text }} *</label>{{ field(class_="form-control", rows=4 if field.name == "interests" else None) }}{% for error in field.errors %}<div class="field-error">{{ error }}</div>{% endfor %}</div>{% endfor %}
+{{ form.submit(class_="btn btn-gold w-100") }}</form><p class="privacy-note">Please submit only information needed to contact you about Rotaract membership.</p></div></section>{% endblock %}

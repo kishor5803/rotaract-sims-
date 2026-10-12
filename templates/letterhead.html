@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% block title %}Official Letterhead &amp; Letterhead Exchange | Rotaract Club of SIMS{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">CLUB ID: 8827610 · ZONE VARUNA · RID 3192</span>
+    <h1>Official Letterhead &amp; <span class="gold-text">Letterhead Exchange.</span></h1>
+    <p>Rotaract Club of Soundarya Institute of Management &amp; Science (ASTHRA) · RY 2026–27.</p>
+    <div class="mt-3 small muted">Soundarya Institute of Management &amp; Science · RID 3192</div>
+  </div>
+</section>
+
+<section class="container section-pad">
+  <!-- Action Header -->
+  <div class="row align-items-center mb-5 g-4">
+    <div class="col-lg-7">
+      <span class="eyebrow dark-eyebrow">FELLOWSHIP &amp; TRADITION</span>
+      <h2>Rotaract Letterhead Exchange</h2>
+      <p class="text-secondary">
+        Letterhead exchange is a cherished Rotaract tradition connecting clubs across districts, nations, and continents. Clubs exchange official communications to foster inter-club fellowship, goodwill, and joint service opportunities.
+      </p>
+      <div class="d-flex flex-wrap gap-2 mt-3">
+        <span class="badge bg-dark-subtle text-dark border px-3 py-2">Club ID: <strong>8827610</strong></span>
+        <span class="badge bg-dark-subtle text-dark border px-3 py-2">Zone: <strong>Varuna</strong></span>
+        <span class="badge bg-dark-subtle text-dark border px-3 py-2">District: <strong>RI District 3192</strong></span>
+        <span class="badge bg-dark-subtle text-dark border px-3 py-2">RY: <strong>2026–27</strong></span>
+      </div>
+    </div>
+    <div class="col-lg-5 text-lg-end">
+      <div class="d-flex flex-column flex-sm-row justify-content-lg-end gap-2">
+        <a href="{{ url_for('static', filename='images/official-letterhead.jpeg') }}" download="Rotaract_SIMS_Official_Letterhead_RY2026-27.jpeg" class="btn btn-gold">
+          ⬇ Download Official Letterhead
+        </a>
+        <button onclick="window.print()" class="btn btn-outline-dark">
+          🖨 Print Letterhead
+        </button>
+        <a href="{{ url_for('collaborate') }}?type=letterhead" class="btn btn-navy">
+          ✉ Request Exchange
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Letterhead Showcase & Interactive Viewer -->
+  <div class="row g-5 justify-content-center">
+    <!-- Visual Letterhead Display -->
+    <div class="col-lg-7">
+      <div class="letterhead-frame shadow-lg rounded-4 overflow-hidden border">
+        <div class="letterhead-toolbar d-flex justify-content-between align-items-center px-4 py-2 bg-dark text-white">
+          <small class="gold-text fw-bold">ROTARACT CLUB OF SIMS · OFFICIAL LETTERHEAD</small>
+          <a href="{{ url_for('static', filename='images/official-letterhead.jpeg') }}" target="_blank" class="btn btn-sm btn-outline-light py-0">View Raw Image ↗</a>
+        </div>
+        <div class="p-2 bg-light text-center">
+          <img src="{{ url_for('static', filename='images/official-letterhead.jpeg') }}" alt="Official Letterhead of Rotaract Club of SIMS" class="img-fluid rounded border w-100" style="max-width: 650px;" id="letterheadImage">
+        </div>
+      </div>
+    </div>
+
+    <!-- Letterhead Exchange Details & Contact -->
+    <div class="col-lg-5">
+      <div class="form-panel h-100">
+        <span class="eyebrow">EXCHANGE GUIDELINES</span>
+        <h3 class="h4 mb-3">How to Exchange Letterheads With Us</h3>
+        <p class="text-secondary small mb-4">
+          We warmly invite Rotaract and Rotary clubs worldwide to exchange letterheads with the Rotaract Club of SIMS (ASTHRA).
+        </p>
+
+        <div class="exchange-steps mb-4">
+          <div class="d-flex gap-3 mb-3">
+            <div class="step-num">1</div>
+            <div>
+              <strong class="d-block">Send Your Club's Letterhead</strong>
+              <p class="small text-secondary mb-0">Use our Club Connect form or email your club's official letterhead with a greeting message.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3 mb-3">
+            <div class="step-num">2</div>
+            <div>
+              <strong class="d-block">Include Key Club Details</strong>
+              <p class="small text-secondary mb-0">Mention your Club Name, Club ID, RID (District), and the names of your President &amp; Secretary.</p>
+            </div>
+          </div>
+          <div class="d-flex gap-3 mb-3">
+            <div class="step-num">3</div>
+            <div>
+              <strong class="d-block">Receive Reciprocal Letterhead</strong>
+              <p class="small text-secondary mb-0">Our International Service Director and President will promptly send back the official ASTHRA letterhead.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="club-credentials-box p-3 rounded-3 bg-light border mb-4">
+          <h6 class="fw-bold mb-2 gold-ink">Official Club Credentials</h6>
+          <table class="table table-sm table-borderless mb-0 small">
+            <tr>
+              <td class="text-secondary" style="width: 40%;">Club Name:</td>
+              <td class="fw-semibold">Rotaract Club of SIMS</td>
+            </tr>
+            <tr>
+              <td class="text-secondary">Club ID:</td>
+              <td class="fw-semibold">8827610</td>
+            </tr>
+            <tr>
+              <td class="text-secondary">Zone:</td>
+              <td class="fw-semibold">Varuna</td>
+            </tr>
+            <tr>
+              <td class="text-secondary">District:</td>
+              <td class="fw-semibold">Rotary International District 3192</td>
+            </tr>
+            <tr>
+              <td class="text-secondary">Sponsor Club:</td>
+              <td class="fw-semibold">Rotary Bangalore Chimney Hills</td>
+            </tr>
+            <tr>
+              <td class="text-secondary">Parent Institution:</td>
+              <td class="fw-semibold">Soundarya Institute of Management &amp; Science</td>
+            </tr>
+            <tr>
+              <td class="text-secondary">Email:</td>
+              <td><a href="mailto:rotaractsoundaryainstitute@gmail.com" class="text-dark fw-semibold">rotaractsoundaryainstitute@gmail.com</a></td>
+            </tr>
+            <tr>
+              <td class="text-secondary">Instagram:</td>
+              <td><a href="https://instagram.com/rotaractclub_sims" target="_blank" class="text-dark fw-semibold">@rotaractclub_sims</a></td>
+            </tr>
+          </table>
+        </div>
+
+        <a href="{{ url_for('collaborate') }}?type=letterhead" class="btn btn-gold w-100">Initiate Letterhead Exchange Online →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Official Exchange Letter Transcript Section -->
+  <div class="row mt-5 justify-content-center">
+    <div class="col-lg-12">
+      <div class="card border rounded-4 shadow-sm p-4 p-md-5 bg-white">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 pb-3 border-bottom gap-2">
+          <div>
+            <span class="badge bg-gold text-dark fw-bold mb-1">OFFICIAL COMMUNICATION</span>
+            <h3 class="h4 mb-0">Letterhead Exchange Message · ASTHRA</h3>
+          </div>
+          <button class="btn btn-sm btn-outline-dark" onclick="copyLetterText()" id="copyLetterBtn">📋 Copy Official Letter Text</button>
+        </div>
+        <div class="p-3 p-md-4 rounded-3 bg-light border font-monospace small" id="officialLetterContent" style="white-space: pre-wrap; line-height: 1.8;">ROTARACT CLUB OF SOUNDARYA INSTITUTE OF MANAGEMENT AND SCIENCE
+CLUB ID: 8827610 | ZONE VARUNA | RI DISTRICT 3192
+
+To,
+President Rtr. ____________________
+Rotaract Club of ____________________
+RID ________
+
+Subject: Exchange of Letterhead to Foster New Friendship
+
+Dear Rtr.,
+
+Greetings from the Rotaract Club of Soundarya Institute of Management and Science – ASTHRA!
+
+We are delighted to connect with your esteemed Rotaract Club with the intention of fostering a new friendship, strengthening fellowship, and building a meaningful relationship between our clubs.
+
+The Rotaract Club of Soundarya Institute of Management and Science, known as ASTHRA, is committed to creating a positive impact through initiatives focused on Community Service, Professional Development, International Service, and Club Service. Through our various projects and activities, we strive to encourage leadership, teamwork, compassion, and meaningful engagement among young individuals.
+
+As we continue our journey of Service Above Self, we believe that connecting with fellow Rotaract clubs provides an opportunity to exchange ideas, experiences, and perspectives while creating a strong bond of friendship.
+
+Through this exchange of letterheads, we look forward to establishing a lasting association with your club and exploring opportunities for future collaborations, joint projects, fellowship activities, and knowledge sharing.
+
+We hope this exchange marks the beginning of a wonderful friendship and a mutually enriching journey between our clubs.
+
+Looking forward to connecting, collaborating, and creating lasting memories together.
+
+Yours in Rotaract,
+Rtr. Kishor R
+President | RY 2026–27
+Rotaract Club of Soundarya Institute of Management and Science
+
+Official Email: rotaractsoundaryainstitute@gmail.com
+Instagram: @rotaractclub_sims</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Print Styling & Script -->
+<style>
+@media print {
+  nav, footer, .page-hero, .btn, .eyebrow, .exchange-steps, .club-credentials-box {
+    display: none !important;
+  }
+  .section-pad {
+    padding: 0 !important;
+  }
+  .letterhead-frame, .letterhead-frame * {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  #letterheadImage {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+.step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--gold);
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.btn-navy {
+  background: var(--navy);
+  color: #fff;
+  border: 1px solid var(--navy);
+}
+.btn-navy:hover {
+  background: var(--navy2);
+  color: var(--gold);
+}
+</style>
+<script>
+function copyLetterText() {
+  const text = document.getElementById('officialLetterContent').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyLetterBtn');
+    if (btn) {
+      btn.innerText = '✓ Copied to Clipboard!';
+      setTimeout(() => { btn.innerText = '📋 Copy Official Letter Text'; }, 2500);
+    }
+  });
+}
+</script>
+{% endblock %}

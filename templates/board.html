@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Board of Directors | ASTHRA · Rotaract Club of SIMS{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">ASTHRA · RY 2026–27</span><h1>Meet the <span class="gold-text">Board of Directors.</span></h1><p>The people behind our service, fellowship, and impact at Rotaract Club of SIMS.</p><div class="mt-3 small muted">Soundarya Institute of Management &amp; Science · RID 3192</div></div></section>
+<section class="container section-pad">
+  <div class="row align-items-center g-4 mb-5">
+    <div class="col-md-4 text-center"><img class="president-portrait" src="{{ url_for('static', filename='images/president-kishor.jpeg') }}" alt="Rtr. Kishor R, President of Rotaract Club of SIMS" loading="lazy"></div>
+    <div class="col-md-8"><span class="eyebrow dark-eyebrow">PRESIDENT'S DESK</span><h2>Rtr. Kishor R</h2><p class="gold-ink fw-semibold">President · Rotaract Club of SIMS</p><p>“This is not just my year. This is our year—to serve, lead, and create an impact together.”</p><p class="small text-secondary mb-0">IGNITE • INSPIRE • IMPACT</p></div>
+  </div>
+
+  <!-- Official Installation & Team Group Photo -->
+  <div class="mb-5">
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background: linear-gradient(160deg, #121a2b, #080b12); border: 1.5px solid rgba(205,169,94,.4) !important;">
+      <div class="position-relative">
+        <img src="{{ url_for('static', filename='images/rotaract-team-group.jpeg') }}" alt="Rotaract Club of SIMS Board of Directors Installation Ceremony RY 2026-27" class="img-fluid w-100" style="max-height: 580px; object-fit: cover; object-position: center;">
+        <div class="position-absolute bottom-0 start-0 end-0 p-3 p-md-4 text-white" style="background: linear-gradient(to top, rgba(10,16,30,0.96) 20%, rgba(10,16,30,0.6) 70%, transparent 100%);">
+          <span class="badge bg-warning text-dark fw-bold mb-2">ASTHRA · RY 2026–27 INSTALLATION CEREMONY</span>
+          <h3 class="h4 text-white mb-1">Board of Directors &amp; Executive Council</h3>
+          <p class="small text-light mb-0">Soundarya Institute of Management &amp; Science (SIMS) · Rotary International District 3192</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4"><div><span class="eyebrow dark-eyebrow">OUR TEAM</span><h2 class="mb-0">Board directory</h2><p class="text-secondary mb-0">26 board members · RY 2026–27</p></div><input id="boardSearch" class="form-control board-search" type="search" placeholder="Search by name or designation" aria-label="Search board members"></div>
+  <div class="row g-3" id="boardGrid">{% for member, role in board_members %}<div class="col-sm-6 col-lg-4 board-member" data-search="{{ (member ~ ' ' ~ role)|lower }}"><div class="board-card"><div class="board-number">BOARD MEMBER {{ '%02d'|format(loop.index) }}</div><h3 class="h5 mt-3 mb-2">{{ member }}</h3><div class="board-role">{{ role }}</div></div></div>{% endfor %}</div>
+  <p id="noBoardResults" class="text-secondary mt-4 d-none">No board members match your search.</p>
+  <p class="small text-secondary mt-4">Names and designations are transcribed from the club's RY 2026–27 board list. Please notify the club leadership if a correction is needed.</p>
+</section>
+<script>document.addEventListener('DOMContentLoaded',function(){const input=document.getElementById('boardSearch');const cards=[...document.querySelectorAll('.board-member')];const empty=document.getElementById('noBoardResults');input.addEventListener('input',function(){const q=this.value.trim().toLowerCase();let count=0;cards.forEach(card=>{const match=card.dataset.search.includes(q);card.classList.toggle('d-none',!match);if(match)count++;});empty.classList.toggle('d-none',count!==0);});});</script>
+{% endblock %}

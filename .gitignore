@@ -1,0 +1,35 @@
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Databases & local storage
+*.db
+*.sqlite
+*.sqlite3
+instance/
+
+# Static uploads
+static/uploads/*
+!static/uploads/.gitkeep
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Backup folders
+ASTHRA_Rotaract_SIMS_*
+

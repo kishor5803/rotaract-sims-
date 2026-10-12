@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Achievements & Honors | ASTHRA · Rotaract Club of SIMS{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">ASTHRA · RY 2026–27</span>
+    <h1>Honors &amp; <span class="gold-text">Achievements.</span></h1>
+    <p>A legacy of dedicated service, district accolades, and excellence recognized across Rotaract District 3192.</p>
+    <div class="mt-3 small muted">Soundarya Institute of Management &amp; Science · RID 3192</div>
+  </div>
+</section>
+
+<section class="container section-pad">
+  <!-- Section Title -->
+  <div class="text-center mb-5">
+    <span class="eyebrow dark-eyebrow">DISTRICT RECOGNITION</span>
+    <h2>Hall of Excellence</h2>
+    <p class="text-secondary mx-auto" style="max-width: 680px;">
+      Celebrating the milestones, prestigious awards, and official charter certifications that commemorate our club's commitment to leadership and social impact.
+    </p>
+  </div>
+
+  <!-- Primary Accolades Showcase -->
+  <div class="row g-4 justify-content-center">
+    <!-- Excellent Club Award Presentation -->
+    <div class="col-lg-6">
+      <article class="achievement-card h-100">
+        <div class="achievement-image-wrap">
+          <img src="{{ url_for('static', filename='images/excellent-club-award-plaque.jpeg') }}" alt="Rotaract District 3192 Excellent Club Award Ceremony" class="img-fluid achievement-img" loading="lazy">
+          <div class="achievement-badge"><span class="badge-icon">★</span> District Honor</div>
+        </div>
+        <div class="achievement-body">
+          <span class="achievement-category">Rotaract District 3192</span>
+          <h3 class="h4 mt-2 mb-2">Award Felicitation Ceremony</h3>
+          <p class="text-secondary mb-3">
+            President Rtr. Kishor R and the Rotaract Club of SIMS leadership team receiving the prestigious award citation from Rotary Bangalore West and District 3192 officials.
+          </p>
+          <div class="achievement-meta">
+            <div><strong>Occasion:</strong> District 3192 Assembly &amp; Club Recognition</div>
+            <div><strong>Location:</strong> Rotary Bangalore West</div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Excellent Club Award Poster -->
+    <div class="col-lg-6">
+      <article class="achievement-card h-100">
+        <div class="achievement-image-wrap">
+          <img src="{{ url_for('static', filename='images/excellent-club-award-poster.jpeg') }}" alt="Excellent Club Award Celebration Poster" class="img-fluid achievement-img" loading="lazy">
+          <div class="achievement-badge"><span class="badge-icon">★</span> Official Citation</div>
+        </div>
+        <div class="achievement-body">
+          <span class="achievement-category">Quarter 1 · RY 2026–27</span>
+          <h3 class="h4 mt-2 mb-2">Excellent Club Award Poster</h3>
+          <p class="text-secondary mb-3">
+            “Recognised for our dedication, teamwork, and commitment to meaningful service. This achievement marks the beginning of a journey filled with greater impact and extraordinary milestones.”
+          </p>
+          <div class="achievement-meta">
+            <div><strong>Motto:</strong> ONE TEAM · ONE VISION · A LEGACY OF EXCELLENCE</div>
+            <div><strong>District:</strong> Rotaract District 3192 · Soundarya Institute of Management &amp; Science</div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Club Charter Certificate -->
+    <div class="col-lg-12 mt-4">
+      <article class="achievement-card charter-card">
+        <div class="row g-0 align-items-center">
+          <div class="col-lg-7">
+            <div class="achievement-image-wrap charter-image-wrap p-2">
+              <img src="{{ url_for('static', filename='images/club-charter-certificate.jpeg') }}" alt="Rotaract Club of SIMS Official Charter Certificate" class="img-fluid achievement-img charter-img rounded" loading="lazy">
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="achievement-body p-4 p-xl-5">
+              <div class="achievement-badge d-inline-flex mb-3"><span class="badge-icon">🏛</span> Foundation Milestone</div>
+              <span class="achievement-category d-block">Rotary International</span>
+              <h3 class="h3 mt-2 mb-3">Official Club Charter Certificate</h3>
+              <p class="text-secondary mb-4">
+                The founding certificate of organization, officially chartering the <strong>Rotaract Club of SIMS</strong> under the guidance of Rotary International and Soundarya Institute of Management &amp; Science.
+              </p>
+              <ul class="list-unstyled achievement-highlights">
+                <li class="mb-2"><span class="gold-text me-2">✔</span> Admitted to Membership in <strong>Rotaract District 3192</strong> (Zone Varuna)</li>
+                <li class="mb-2"><span class="gold-text me-2">✔</span> Sponsoring Rotary Club: <strong>Rotary Bangalore Chimney Hills</strong></li>
+                <li class="mb-2"><span class="gold-text me-2">✔</span> Institutional Sponsor: <strong>Soundarya Institute of Management &amp; Science</strong></li>
+                <li class="mb-2"><span class="gold-text me-2">✔</span> Operating under official Rotary International guidelines &amp; Four-Way Test</li>
+              </ul>
+              <div class="faculty-signature mt-4">ROTARACT CLUB OF SIMS <span>·</span> RY 2026–27</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Key Pillars & Impact Stats -->
+  <div class="row g-4 mt-5 text-center">
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <strong>100%</strong>
+        <span>District Reporting</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <strong>26</strong>
+        <span>Board Leaders</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <strong>RID 3192</strong>
+        <span>District Affiliation</span>
+      </div>
+    </div>
+    <div class="col-6 col-md-3">
+      <div class="stat-card">
+        <strong>ASTHRA</strong>
+        <span>Annual Theme</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action Banner -->
+<section class="join-banner">
+  <div class="container d-md-flex align-items-center justify-content-between gap-4">
+    <div>
+      <span class="eyebrow">BE PART OF OUR SUCCESS STORY</span>
+      <h2>Join an award-winning team.</h2>
+      <p class="mb-md-0">Contribute your passion, lead initiatives, and build lifelong leadership skills.</p>
+    </div>
+    <a class="btn btn-gold btn-lg mt-3 mt-md-0" href="{{ url_for('join') }}">Join Rotaract SIMS →</a>
+  </div>
+</section>
+{% endblock %}

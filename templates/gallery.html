@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+{% block title %}Gallery | Rotaract Club of SIMS{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">MOMENTS THAT MATTER · RY 2026–27</span>
+    <h1>Our <span class="gold-text">Gallery.</span></h1>
+    <p>Snapshots of leadership, community impact, official honors, and fellowship at Rotaract Club of SIMS.</p>
+    <div class="mt-3 small muted">Soundarya Institute of Management &amp; Science · RID 3192</div>
+  </div>
+</section>
+
+<section class="container section-pad">
+  <div class="section-heading mb-4">
+    <div>
+      <span class="eyebrow dark-eyebrow">CLUB ARCHIVE</span>
+      <h2>Official Photographs &amp; Milestones</h2>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Signature Installation Photo (Full Width Feature) -->
+    <div class="col-12">
+      <article class="gallery-feature-wrap gallery-trigger"
+               data-gallery-img="{{ url_for('static', filename='images/rotaract-team-group.jpeg') }}"
+               data-gallery-title="Board of Directors &amp; Executive Council Installation Ceremony"
+               data-gallery-desc="Rotaract Club of SIMS (ASTHRA, RY 2026–27) · Soundarya Educational Trust Auditorium"
+               data-gallery-category="SIGNATURE MOMENT"
+               data-gallery-action-url="{{ url_for('board') }}"
+               data-gallery-action-text="View Board of Directors &rarr;">
+        <img src="{{ url_for('static', filename='images/rotaract-team-group.jpeg') }}" alt="Board of Directors Installation Ceremony RY 2026-27">
+        <div class="gallery-feature-overlay">
+          <div>
+            <span class="badge bg-warning text-dark fw-bold mb-2">SIGNATURE MOMENT · CLICK TO ZOOM</span>
+            <h3 class="h3 text-white mb-1">Board of Directors &amp; Executive Council Installation Ceremony</h3>
+            <p class="text-light mb-0 small">Rotaract Club of SIMS (ASTHRA, RY 2026–27) · Soundarya Educational Trust Auditorium</p>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Award Felicitation Photo -->
+    <div class="col-sm-6 col-lg-4">
+      <article class="gallery-card">
+        <div class="gallery-thumb-wrap gallery-trigger"
+             data-gallery-img="{{ url_for('static', filename='images/excellent-club-award-plaque.jpeg') }}"
+             data-gallery-title="Award Felicitation Ceremony"
+             data-gallery-desc="Rotaract SIMS delegation receiving the Excellent Club Award presented at Rotary Bangalore West, RID 3192."
+             data-gallery-category="District Recognition"
+             data-gallery-action-url="{{ url_for('achievements') }}"
+             data-gallery-action-text="View Club Achievements &rarr;">
+          <img src="{{ url_for('static', filename='images/excellent-club-award-plaque.jpeg') }}" alt="Excellent Club Award Felicitation" loading="lazy">
+          <div class="gallery-hover-overlay">
+            <span class="gallery-zoom-badge">🔍 View Fullscreen</span>
+          </div>
+        </div>
+        <div class="gallery-card-body">
+          <span class="badge bg-gold-subtle text-dark border mb-2 align-self-start">District Recognition</span>
+          <h3 class="h5">Award Felicitation Ceremony</h3>
+          <p class="text-secondary small">Rotaract SIMS delegation receiving the Excellent Club Award presented at Rotary Bangalore West, RID 3192.</p>
+          <div class="gallery-card-actions">
+            <a href="{{ url_for('achievements') }}" class="btn btn-sm btn-outline-dark fw-semibold">Achievements &rarr;</a>
+            <button type="button" class="btn btn-sm btn-gold fw-semibold gallery-trigger"
+                    data-gallery-img="{{ url_for('static', filename='images/excellent-club-award-plaque.jpeg') }}"
+                    data-gallery-title="Award Felicitation Ceremony"
+                    data-gallery-desc="Rotaract SIMS delegation receiving the Excellent Club Award presented at Rotary Bangalore West, RID 3192."
+                    data-gallery-category="District Recognition"
+                    data-gallery-action-url="{{ url_for('achievements') }}"
+                    data-gallery-action-text="View Club Achievements &rarr;">🔍 Enlarge</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Excellent Club Award Poster -->
+    <div class="col-sm-6 col-lg-4">
+      <article class="gallery-card">
+        <div class="gallery-thumb-wrap gallery-trigger"
+             data-gallery-img="{{ url_for('static', filename='images/excellent-club-award-poster.jpeg') }}"
+             data-gallery-title="Excellent Club Award (Q1)"
+             data-gallery-desc="Official District 3192 celebration citation: “ONE TEAM · ONE VISION · A LEGACY OF EXCELLENCE.”"
+             data-gallery-category="Honor &amp; Citation"
+             data-gallery-action-url="{{ url_for('achievements') }}"
+             data-gallery-action-text="Read Award Citation &rarr;">
+          <img src="{{ url_for('static', filename='images/excellent-club-award-poster.jpeg') }}" alt="Excellent Club Award Celebration Poster" loading="lazy">
+          <div class="gallery-hover-overlay">
+            <span class="gallery-zoom-badge">🔍 View Fullscreen</span>
+          </div>
+        </div>
+        <div class="gallery-card-body">
+          <span class="badge bg-gold-subtle text-dark border mb-2 align-self-start">Honor &amp; Citation</span>
+          <h3 class="h5">Excellent Club Award (Q1)</h3>
+          <p class="text-secondary small">Official District 3192 celebration citation: “ONE TEAM · ONE VISION · A LEGACY OF EXCELLENCE.”</p>
+          <div class="gallery-card-actions">
+            <a href="{{ url_for('achievements') }}" class="btn btn-sm btn-outline-dark fw-semibold">Achievements &rarr;</a>
+            <button type="button" class="btn btn-sm btn-gold fw-semibold gallery-trigger"
+                    data-gallery-img="{{ url_for('static', filename='images/excellent-club-award-poster.jpeg') }}"
+                    data-gallery-title="Excellent Club Award (Q1)"
+                    data-gallery-desc="Official District 3192 celebration citation: “ONE TEAM · ONE VISION · A LEGACY OF EXCELLENCE.”"
+                    data-gallery-category="Honor &amp; Citation"
+                    data-gallery-action-url="{{ url_for('achievements') }}"
+                    data-gallery-action-text="Read Award Citation &rarr;">🔍 Enlarge</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Official Charter Certificate -->
+    <div class="col-sm-6 col-lg-4">
+      <article class="gallery-card">
+        <div class="gallery-thumb-wrap gallery-trigger"
+             data-gallery-img="{{ url_for('static', filename='images/club-charter-certificate.jpeg') }}"
+             data-gallery-title="Rotary International Charter Certificate"
+             data-gallery-desc="Official Charter of Organization granting membership to Rotaract Club of Soundarya Institute of Management &amp; Science."
+             data-gallery-category="Charter Document"
+             data-gallery-action-url="{{ url_for('achievements') }}"
+             data-gallery-action-text="View Charter Honors &rarr;">
+          <img src="{{ url_for('static', filename='images/club-charter-certificate.jpeg') }}" alt="Official Charter Certificate" loading="lazy">
+          <div class="gallery-hover-overlay">
+            <span class="gallery-zoom-badge">🔍 View Fullscreen</span>
+          </div>
+        </div>
+        <div class="gallery-card-body">
+          <span class="badge bg-gold-subtle text-dark border mb-2 align-self-start">Charter Document</span>
+          <h3 class="h5">Rotary International Charter</h3>
+          <p class="text-secondary small">Official Charter of Organization granting membership to Rotaract Club of Soundarya Institute of Management &amp; Science.</p>
+          <div class="gallery-card-actions">
+            <a href="{{ url_for('achievements') }}" class="btn btn-sm btn-outline-dark fw-semibold">Charter Honors &rarr;</a>
+            <button type="button" class="btn btn-sm btn-gold fw-semibold gallery-trigger"
+                    data-gallery-img="{{ url_for('static', filename='images/club-charter-certificate.jpeg') }}"
+                    data-gallery-title="Rotary International Charter Certificate"
+                    data-gallery-desc="Official Charter of Organization granting membership to Rotaract Club of Soundarya Institute of Management &amp; Science."
+                    data-gallery-category="Charter Document"
+                    data-gallery-action-url="{{ url_for('achievements') }}"
+                    data-gallery-action-text="View Charter Honors &rarr;">🔍 Enlarge</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Official Letterhead Exchange Document -->
+    <div class="col-sm-6 col-lg-4">
+      <article class="gallery-card">
+        <div class="gallery-thumb-wrap gallery-trigger"
+             data-gallery-img="{{ url_for('static', filename='images/official-letterhead.jpeg') }}"
+             data-gallery-title="Official Letterhead Exchange · ASTHRA"
+             data-gallery-desc="Official letterhead exchange communication of Rotaract SIMS (Club ID: 8827610, Zone Varuna, RID 3192)."
+             data-gallery-category="Official Tradition"
+             data-gallery-action-url="{{ url_for('letterhead') }}"
+             data-gallery-action-text="Open Letterhead Page &rarr;">
+          <img src="{{ url_for('static', filename='images/official-letterhead.jpeg') }}" alt="Official Letterhead Exchange ASTHRA" loading="lazy">
+          <div class="gallery-hover-overlay">
+            <span class="gallery-zoom-badge">🔍 View Fullscreen</span>
+          </div>
+        </div>
+        <div class="gallery-card-body">
+          <span class="badge bg-gold-subtle text-dark border mb-2 align-self-start">Official Identity · Club ID: 8827610</span>
+          <h3 class="h5">Official Letterhead Exchange</h3>
+          <p class="text-secondary small">Official letterhead exchange communication of Rotaract SIMS (Club ID: 8827610, Zone Varuna, RID 3192) to foster fellowship.</p>
+          <div class="gallery-card-actions">
+            <a href="{{ url_for('letterhead') }}" class="btn btn-sm btn-gold fw-semibold">Letterhead Page &rarr;</a>
+            <button type="button" class="btn btn-sm btn-outline-dark fw-semibold gallery-trigger"
+                    data-gallery-img="{{ url_for('static', filename='images/official-letterhead.jpeg') }}"
+                    data-gallery-title="Official Letterhead Exchange · ASTHRA"
+                    data-gallery-desc="Official letterhead exchange communication of Rotaract SIMS (Club ID: 8827610, Zone Varuna, RID 3192)."
+                    data-gallery-category="Official Tradition"
+                    data-gallery-action-url="{{ url_for('letterhead') }}"
+                    data-gallery-action-text="Open Letterhead Page &rarr;">🔍 Enlarge</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Dynamic Admin Uploaded Items (if any) -->
+    {% for item in items %}
+    <div class="col-sm-6 col-lg-4">
+      <article class="gallery-card">
+        <div class="gallery-thumb-wrap gallery-trigger"
+             data-gallery-img="{{ item.image_url }}"
+             data-gallery-title="{{ item.title }}"
+             data-gallery-desc="{{ item.caption }}"
+             data-gallery-category="Club Gallery">
+          <img src="{{ item.image_url }}" alt="{{ item.title }}" loading="lazy">
+          <div class="gallery-hover-overlay">
+            <span class="gallery-zoom-badge">🔍 View Fullscreen</span>
+          </div>
+        </div>
+        <div class="gallery-card-body">
+          <span class="badge bg-secondary-subtle text-dark border mb-2 align-self-start">Rotaract Gallery</span>
+          <h3 class="h5">{{ item.title }}</h3>
+          <p class="text-secondary small">{{ item.caption }}</p>
+          <div class="gallery-card-actions">
+            <button type="button" class="btn btn-sm btn-gold fw-semibold gallery-trigger"
+                    data-gallery-img="{{ item.image_url }}"
+                    data-gallery-title="{{ item.title }}"
+                    data-gallery-desc="{{ item.caption }}"
+                    data-gallery-category="Club Gallery">🔍 Enlarge</button>
+          </div>
+        </div>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Gallery Lightbox Modal -->
+<div class="modal fade" id="galleryLightboxModal" tabindex="-1" aria-labelledby="galleryLightboxTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content border-0 shadow-lg" style="background: #0d1527; color: #f7f9fc; border-radius: 18px; overflow: hidden;">
+      <div class="modal-header border-bottom border-secondary border-opacity-25 px-4 py-3" style="background: rgba(16, 28, 53, 0.95);">
+        <div>
+          <span class="badge bg-gold text-dark fw-bold px-2 py-1 mb-1" id="modalCategoryBadge">ROTARACT ARCHIVE</span>
+          <h5 class="modal-title h5 text-white mb-0" id="galleryLightboxTitle">Image Title</h5>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-2 p-md-4 text-center position-relative" style="background: radial-gradient(circle at center, #152238 0%, #090e1a 100%); min-height: 420px; display: flex; align-items: center; justify-content: center;">
+        <img id="galleryLightboxImg" src="" alt="" class="img-fluid rounded shadow-lg" style="max-height: 74vh; width: auto; max-width: 100%; object-fit: contain;">
+      </div>
+      <div class="modal-footer border-top border-secondary border-opacity-25 px-4 py-3 d-flex flex-wrap justify-content-between align-items-center" style="background: rgba(16, 28, 53, 0.95);">
+        <p class="small text-light text-opacity-75 mb-0 me-3" id="galleryLightboxDesc" style="max-width: 650px;"></p>
+        <div class="d-flex gap-2">
+          <a id="galleryLightboxActionBtn" href="#" class="btn btn-sm btn-gold fw-bold d-none"></a>
+          <a id="galleryLightboxDownloadBtn" href="" download class="btn btn-sm btn-outline-light">⬇ Download Image</a>
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openGalleryLightbox(imgSrc, title, desc, category, actionUrl, actionText) {
+  const modalImg = document.getElementById('galleryLightboxImg');
+  const modalTitle = document.getElementById('galleryLightboxTitle');
+  const modalDesc = document.getElementById('galleryLightboxDesc');
+  const modalBadge = document.getElementById('modalCategoryBadge');
+  const modalDownload = document.getElementById('galleryLightboxDownloadBtn');
+  const modalAction = document.getElementById('galleryLightboxActionBtn');
+  
+  if (modalImg) modalImg.src = imgSrc || '';
+  if (modalTitle) modalTitle.textContent = title || '';
+  if (modalDesc) modalDesc.textContent = desc || '';
+  if (modalBadge) modalBadge.textContent = category || 'ROTARACT ARCHIVE';
+  if (modalDownload) {
+    modalDownload.href = imgSrc || '';
+    const safeName = (title || 'rotaract-gallery').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    modalDownload.download = safeName + '.jpeg';
+  }
+  if (modalAction) {
+    if (actionUrl && actionText) {
+      modalAction.href = actionUrl;
+      modalAction.innerHTML = actionText;
+      modalAction.classList.remove('d-none');
+    } else {
+      modalAction.classList.add('d-none');
+    }
+  }
+  
+  const modalEl = document.getElementById('galleryLightboxModal');
+  if (modalEl && window.bootstrap) {
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    modal.show();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.gallery-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dataset = trigger.dataset;
+      openGalleryLightbox(
+        dataset.galleryImg,
+        dataset.galleryTitle,
+        dataset.galleryDesc,
+        dataset.galleryCategory,
+        dataset.galleryActionUrl,
+        dataset.galleryActionText
+      );
+    });
+  });
+});
+</script>
+{% endblock %}

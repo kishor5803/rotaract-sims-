@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | Rotaract SIMS{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container d-flex flex-wrap justify-content-between align-items-end gap-3">
+    <div>
+      <span class="eyebrow">CLUB MANAGEMENT</span>
+      <h1>Admin <span class="gold-text">dashboard.</span></h1>
+      <p>Manage club updates, announcements, BOD communications, and review submissions.</p>
+    </div>
+    <a class="btn btn-outline-light" href="{{ url_for('admin_logout') }}">Log out</a>
+  </div>
+</section>
+
+<section class="container section-pad">
+  <!-- Key Metrics Row -->
+  <div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Membership applications</span>
+        <strong>{{ applications|length }}</strong>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Collaboration requests</span>
+        <strong>{{ collaborations|length }}</strong>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Unique Website Visitors</span>
+        <strong>{{ visitor_metric.unique_visitors }}</strong>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Total Page Views</span>
+        <strong>{{ visitor_metric.total_page_views }}</strong>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Announcements</span>
+        <strong>{{ announcements|length }}</strong>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Active Events</span>
+        <strong>{{ events|length }}</strong>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Club Projects</span>
+        <strong>{{ projects|length }}</strong>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span>Verified Certificates</span>
+        <strong>{{ certificates|length }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Announcement Publisher -->
+  <div class="row g-4 mb-4">
+    <div class="col-12">
+      <div class="admin-panel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="mb-0">Publish Announcement &amp; Circular</h2>
+          <span class="badge bg-gold text-dark fw-bold px-3 py-2">Club Circular System</span>
+        </div>
+        <form method="post" action="{{ url_for('admin_add_announcement') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <div class="row g-2 mb-2">
+            <div class="col-md-8">
+              <input class="form-control" name="title" placeholder="Announcement title (e.g. GBM Notice, Project Circular, Flagship Event Announcement)" required>
+            </div>
+            <div class="col-md-4">
+              <select class="form-select" name="category">
+                <option value="Club Notice">Club Notice</option>
+                <option value="Event Circular">Event Circular</option>
+                <option value="Meeting Agenda">Meeting Agenda</option>
+                <option value="Project Update">Project Update</option>
+                <option value="BOD Circular">BOD Circular</option>
+                <option value="General Notice">General Notice</option>
+              </select>
+            </div>
+          </div>
+          <textarea class="form-control mb-3" name="content" placeholder="Full announcement text, date, venue, instructions, agenda, or notification message..." rows="3" required></textarea>
+          
+          <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between p-3 rounded" style="background: rgba(16, 28, 53, 0.03); border: 1px dashed rgba(16, 28, 53, 0.25);">
+            <div class="d-flex flex-wrap gap-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="is_public" id="is_public" checked>
+                <label class="form-check-label small fw-semibold" for="is_public">
+                  🌐 Display publicly to website visitors
+                </label>
+                <div class="text-secondary" style="font-size: 0.75rem;">Publishes notice on the public website homepage banner.</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="send_bod_email" id="send_bod_email" checked>
+                <label class="form-check-label small fw-semibold" for="send_bod_email">
+                  ✉️ Send email update to BOD members
+                </label>
+                <div class="text-secondary" style="font-size: 0.75rem;">Sends notification email to all configured BOD addresses via SMTP.</div>
+              </div>
+            </div>
+            <button class="btn btn-gold px-4">Publish Announcement</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Announcement Log Table -->
+  <div class="admin-panel mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Club Announcements &amp; Circulars</h2>
+      <span class="small text-secondary">{{ announcements|length }} total announcement(s)</span>
+    </div>
+    {% if announcements %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th style="min-width: 240px;">Title &amp; Summary</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Website Visitors</th>
+            <th>BOD Email Status</th>
+            <th class="text-end">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in announcements %}
+          <tr>
+            <td>
+              <strong>{{ item.title }}</strong>
+              <p class="small text-muted mb-0" style="max-width: 360px; white-space: pre-wrap; font-size: 0.82rem;">{{ item.content[:140] }}{% if item.content|length > 140 %}...{% endif %}</p>
+            </td>
+            <td><span class="badge bg-light text-dark border">{{ item.category }}</span></td>
+            <td class="small text-secondary">{{ item.created_at.strftime('%d %b %Y, %H:%M') }}</td>
+            <td>
+              {% if item.is_public %}
+                <span class="badge bg-success">Visible to visitors</span>
+              {% else %}
+                <span class="badge bg-secondary">Internal only</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if item.email_status.startswith('Sent') %}
+                <span class="badge bg-success">{{ item.email_status }}</span>
+              {% elif 'Skipped' in item.email_status %}
+                <span class="badge bg-warning text-dark">{{ item.email_status }}</span>
+              {% elif 'Failed' in item.email_status %}
+                <span class="badge bg-danger">{{ item.email_status }}</span>
+              {% else %}
+                <span class="badge bg-light text-secondary border">Not requested</span>
+              {% endif %}
+            </td>
+            <td class="text-end">
+              <form method="post" action="{{ url_for('admin_delete_announcement', item_id=item.id) }}" onsubmit="return confirm('Are you sure you want to delete this announcement?');" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="btn btn-sm btn-outline-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="muted">No announcements posted yet.</p>
+    {% endif %}
+  </div>
+
+  <!-- Website Visitor Tracking & Privacy Note -->
+  <div class="admin-panel mb-4" style="border-left: 4px solid var(--gold, #e4c16d); background: #fdfdfd;">
+    <div class="d-md-flex justify-content-between align-items-center">
+      <div>
+        <h3 class="h5 mb-1">📊 Website Visitor Tracking &amp; Privacy Analytics</h3>
+        <p class="small text-secondary mb-0">
+          Anonymous Visitor Metrics: <strong>{{ visitor_metric.unique_visitors }}</strong> unique visitors · <strong>{{ visitor_metric.total_page_views }}</strong> page views.
+          <br>
+          <em>Note: Passive page browsing does not record personal contact information. In accordance with privacy standards, individual visitor contact details are only collected through explicit, consent-based user actions via the Membership Application and Collaboration Request forms below.</em>
+        </p>
+      </div>
+      <div class="text-md-end mt-2 mt-md-0">
+        <span class="badge bg-light text-dark border p-2">Last visit: {{ visitor_metric.last_updated.strftime('%d %b %Y, %H:%M') if visitor_metric.last_updated else 'Just now' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Publishing panels for Events, Projects, Gallery, Certificates -->
+  <div class="row g-4 mb-4">
+    <div class="col-lg-6">
+      <div class="admin-panel">
+        <h2>Publish an event</h2>
+        <form method="post" action="{{ url_for('admin_add_event') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input class="form-control mb-2" name="title" placeholder="Event title" required>
+          <input class="form-control mb-2" type="date" name="event_date" required>
+          <input class="form-control mb-2" name="venue" placeholder="Venue">
+          <textarea class="form-control mb-2" name="description" placeholder="Description" rows="3" required></textarea>
+          <button class="btn btn-gold">Publish event</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="admin-panel">
+        <h2>Publish a project</h2>
+        <form method="post" action="{{ url_for('admin_add_project') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input class="form-control mb-2" name="title" placeholder="Project title" required>
+          <input class="form-control mb-2" name="category" placeholder="Category">
+          <textarea class="form-control mb-2" name="summary" placeholder="Project summary" rows="2" required></textarea>
+          <input class="form-control mb-2" name="impact" placeholder="Verified impact / status">
+          <button class="btn btn-gold">Publish project</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="admin-panel">
+        <h2>Add gallery image</h2>
+        <form method="post" action="{{ url_for('admin_add_gallery') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input class="form-control mb-2" name="title" placeholder="Image title" required>
+          <input class="form-control mb-2" type="url" name="image_url" placeholder="Hosted image URL (https://...)" required>
+          <input class="form-control mb-2" name="caption" placeholder="Caption">
+          <button class="btn btn-gold">Add image</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="admin-panel">
+        <h2>Register certificate</h2>
+        <form method="post" action="{{ url_for('admin_add_certificate') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input class="form-control mb-2" name="certificate_code" placeholder="Unique certificate code" required>
+          <input class="form-control mb-2" name="recipient_name" placeholder="Recipient name" required>
+          <input class="form-control mb-2" name="event_name" placeholder="Event name" required>
+          <input class="form-control mb-2" type="date" name="issue_date" required>
+          <button class="btn btn-gold">Register certificate</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="admin-panel">
+        <h2>Gmail SMTP Notifications &amp; Mail Settings</h2>
+        <div class="row g-3 align-items-center">
+          <div class="col-md-7">
+            <p class="small text-secondary mb-2">Automated emails are sent when someone applies for membership (<strong>/join</strong>), requests a club collaboration/letterhead exchange (<strong>/collaborate</strong>), or when an announcement is dispatched with BOD email enabled.</p>
+            <ul class="list-unstyled small mb-3">
+              <li><strong>SMTP Server:</strong> <code>{{ config['MAIL_SERVER'] }}:{{ config['MAIL_PORT'] }}</code> (TLS: <code>{{ config['MAIL_USE_TLS'] }}</code>)</li>
+              <li><strong>Mail Username:</strong> <code>{{ config['MAIL_USERNAME'] if config['MAIL_USERNAME'] else 'Not set' }}</code></li>
+              <li><strong>Sender Address:</strong> <code>{{ config['MAIL_DEFAULT_SENDER'] }}</code></li>
+              <li><strong>BOD Notification Recipients:</strong> {% if config['BOD_EMAILS'] %}{% for em in config['BOD_EMAILS'] %}<code>{{ em }}</code>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}<span class="text-secondary small">None (add BOD_EMAILS in .env)</span>{% endif %}</li>
+              <li><strong>Status:</strong> {% if 'yourclubemail' in config['MAIL_USERNAME'] or 'your-16-character' in config['MAIL_PASSWORD'] %}<span class="badge bg-warning text-dark">App Password Needed (.env has placeholder password)</span>{% elif config['MAIL_USERNAME'] and config['MAIL_PASSWORD'] %}<span class="badge bg-success">Configured &amp; Ready</span>{% else %}<span class="badge bg-secondary">Not configured</span>{% endif %}</li>
+            </ul>
+            {% if 'your-16-character' in config['MAIL_PASSWORD'] %}
+            <div class="alert alert-warning py-2 px-3 small mb-2 border-0" style="background:#fff3cd; color:#664d03; border-radius:8px;">
+              <strong>🔑 Google App Password Setup Guide:</strong>
+              <ol class="mb-0 ps-3 mt-1" style="font-size:0.8rem;">
+                <li>Go to <a href="https://myaccount.google.com/apppasswords" target="_blank" class="fw-bold text-dark">myaccount.google.com/apppasswords</a> (ensure 2-Step Verification is ON).</li>
+                <li>Type an App Name (e.g., <em>Rotaract SIMS Web</em>) and click <strong>Create</strong>.</li>
+                <li>Copy the 16-letter code (e.g., <code>abcd efgh ijkl mnop</code>).</li>
+                <li>Paste it into <code>.env</code> under <code>MAIL_PASSWORD=...</code> and restart the app.</li>
+              </ol>
+            </div>
+            {% endif %}
+          </div>
+          <div class="col-md-5">
+            <form method="post" action="{{ url_for('admin_test_email') }}" class="p-3 border rounded bg-light">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <label class="form-label small fw-bold">Send Test Email</label>
+              <input class="form-control form-control-sm mb-2" name="target_email" placeholder="Recipient email (e.g. your email)" type="email">
+              <button class="btn btn-sm btn-gold w-100">Test SMTP Connection</button>
+              <small class="text-secondary d-block mt-1" style="font-size:0.75rem;">Requires Gmail App Password configured in <code>.env</code></small>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Consent-based Registered Submissions: Applications & Collaborations -->
+  <div class="admin-panel mt-4">
+    <h2>Membership applications (Consent-Based Registrations)</h2>
+    {% if applications %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Course/year</th>
+            <th>Interest</th>
+            <th>Status</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in applications %}
+          <tr>
+            <td>{{ item.full_name }}</td>
+            <td>{{ item.email }}<br>{{ item.phone }}</td>
+            <td>{{ item.course_year }}</td>
+            <td>{{ item.interests }}</td>
+            <td>{{ item.status }}</td>
+            <td>
+              <form method="post" action="{{ url_for('admin_application_status', item_id=item.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <select name="status" class="form-select form-select-sm mb-1">
+                  <option {% if item.status == 'Pending' %}selected{% endif %}>Pending</option>
+                  <option {% if item.status == 'Contacted' %}selected{% endif %}>Contacted</option>
+                  <option {% if item.status == 'Approved' %}selected{% endif %}>Approved</option>
+                  <option {% if item.status == 'Declined' %}selected{% endif %}>Declined</option>
+                </select>
+                <button class="btn btn-sm btn-outline-dark">Save</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="muted">No applications yet.</p>
+    {% endif %}
+  </div>
+
+  <div class="admin-panel mt-4">
+    <h2>Collaboration requests (Club Partner Inquiries)</h2>
+    {% if collaborations %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>Club</th>
+            <th>Contact</th>
+            <th>Type</th>
+            <th>Message</th>
+            <th>Status / update</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in collaborations %}
+          <tr>
+            <td>{{ item.club_name }}</td>
+            <td>{{ item.contact_name }}<br>{{ item.email }}</td>
+            <td>{{ item.request_type }}</td>
+            <td>{{ item.message }}</td>
+            <td>
+              {{ item.status }}
+              <form method="post" action="{{ url_for('admin_collaboration_status', item_id=item.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <select name="status" class="form-select form-select-sm my-1">
+                  <option {% if item.status == 'Pending' %}selected{% endif %}>Pending</option>
+                  <option {% if item.status == 'Contacted' %}selected{% endif %}>Contacted</option>
+                  <option {% if item.status == 'Approved' %}selected{% endif %}>Approved</option>
+                  <option {% if item.status == 'Closed' %}selected{% endif %}>Closed</option>
+                </select>
+                <button class="btn btn-sm btn-outline-dark">Save</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="muted">No requests yet.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

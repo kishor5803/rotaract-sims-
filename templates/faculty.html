@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Faculty Leadership | ASTHRA · Rotaract Club of SIMS{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="container"><span class="eyebrow">ASTHRA · RY 2026–27</span><h1>Faculty <span class="gold-text">Leadership.</span></h1><p>Guidance, encouragement, and support behind the Rotaract Club of SIMS team.</p><div class="mt-3 small muted">Soundarya Institute of Management &amp; Science · RID 3192</div></div></section>
+<!-- Institutional Leadership & Patronage -->
+<section class="container section-pad pt-5">
+  <div class="text-center mb-5">
+    <span class="eyebrow dark-eyebrow">INSTITUTIONAL LEADERSHIP</span>
+    <h2>Patronage &amp; Guidance</h2>
+    <p class="text-secondary mx-auto" style="max-width:680px">
+      Under the vision and esteemed leadership of Soundarya Education Trust and Soundarya Institute of Management &amp; Science (SIMS), fostering innovation, youth leadership, and impactful community engagement.
+    </p>
+  </div>
+  <div class="row g-4 justify-content-center">
+    <div class="col-md-4">
+      <article class="faculty-card text-center h-100">
+        <div class="faculty-image-wrap" style="height:220px; align-items:center; justify-content:center; background:#0e1626;">
+          <img src="{{ url_for('static', filename='images/chairman-soundarya.jpeg') }}" alt="Mr. Soundarya P Manjappa" style="width:130px; height:130px; border-radius:50%; border:2px solid var(--gold); object-fit:cover;">
+        </div>
+        <div class="faculty-card-body">
+          <span class="faculty-role">Patron &amp; Chairman</span>
+          <h3 class="h5 mt-2 mb-2">Mr. Soundarya P Manjappa</h3>
+          <p class="small text-secondary mb-3">Chairman, Soundarya Education Trust</p>
+          <div class="faculty-signature">SOUNDARYA EDUCATION TRUST</div>
+        </div>
+      </article>
+    </div>
+    <div class="col-md-4">
+      <article class="faculty-card text-center h-100">
+        <div class="faculty-image-wrap" style="height:220px; align-items:center; justify-content:center; background:#0e1626;">
+          <img src="{{ url_for('static', filename='images/ceo-keerthan.jpeg') }}" alt="Mr. Keerthan Kumar" style="width:130px; height:130px; border-radius:50%; border:2px solid var(--gold); object-fit:cover;">
+        </div>
+        <div class="faculty-card-body">
+          <span class="faculty-role">Patron &amp; CEO</span>
+          <h3 class="h5 mt-2 mb-2">Mr. Keerthan Kumar</h3>
+          <p class="small text-secondary mb-3">CEO, Soundarya Education Trust</p>
+          <div class="faculty-signature">SOUNDARYA EDUCATION TRUST</div>
+        </div>
+      </article>
+    </div>
+    <div class="col-md-4">
+      <article class="faculty-card text-center h-100">
+        <div class="faculty-image-wrap" style="height:220px; align-items:center; justify-content:center; background:#0e1626;">
+          <img src="{{ url_for('static', filename='images/principal-prakash.jpeg') }}" alt="Dr. Prakash H S" style="width:130px; height:130px; border-radius:50%; border:2px solid var(--gold); object-fit:cover;">
+        </div>
+        <div class="faculty-card-body">
+          <span class="faculty-role">Institution Principal</span>
+          <h3 class="h5 mt-2 mb-2">Dr. Prakash H S</h3>
+          <p class="small text-secondary mb-3">Principal, Soundarya Institute of Management &amp; Science (SIMS)</p>
+          <div class="faculty-signature">SIMS <span>·</span> RID 3192</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="container pb-5">
+  <div class="text-center mb-5"><span class="eyebrow dark-eyebrow">OUR GUIDES</span><h2>Faculty coordinators &amp; advisors</h2><p class="text-secondary mx-auto" style="max-width:680px">We gratefully acknowledge the faculty members who guide our Rotaractors and support our service, leadership, and fellowship initiatives.</p></div>
+  <div class="row g-4 justify-content-center">
+    {% for person in faculty_members %}
+    <div class="col-sm-10 col-md-6 col-lg-5">
+      <article class="faculty-card h-100">
+        <div class="faculty-image-wrap"><img src="{{ url_for('static', filename=person.image) }}" alt="Faculty member portrait" loading="lazy"></div>
+        <div class="faculty-card-body"><span class="faculty-role">{{ person.role }}</span><h2 class="h4 mt-2 mb-3">{{ person.name }}</h2><p>{{ person.description }}</p><div class="faculty-signature">ROTARACT CLUB OF SIMS <span>·</span> RY 2026–27</div></div>
+      </article>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: rotaract-sims-website
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: MAIL_SERVER
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: "587"
+      - key: MAIL_USE_TLS
+        value: "true"
+      - key: MAIL_USERNAME
+        value: rotaractsoundaryainstitute@gmail.com
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_DEFAULT_SENDER
+        value: "ASTHRA Rotaract Club of SIMS <rotaractsoundaryainstitute@gmail.com>"
+      - key: BOD_EMAILS
+        sync: false

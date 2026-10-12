@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Club Connect &amp; Letterhead Exchange | Rotaract Club of SIMS{% endblock %}
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">BETTER TOGETHER · RY 2026–27</span>
+    <h1>Let's create impact <span class="gold-text">together.</span></h1>
+    <p>Connect with Rotaract Club of SIMS for joint projects, GBM/BOD visits, speaker sessions, and official letterhead exchanges.</p>
+    <div class="mt-3 small muted">Soundarya Institute of Management &amp; Science · RID 3192</div>
+  </div>
+</section>
+
+<section class="container section-pad">
+  <div class="row g-5 align-items-start">
+    <!-- Letterhead & Club Credentials Showcase -->
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4" style="background: linear-gradient(160deg, #121a2b, #080b12); color: #f7f3e9; border: 1px solid rgba(205,169,94,.35) !important;">
+        <div class="p-4 pb-2">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="eyebrow mb-0">OFFICIAL LETTERHEAD</span>
+            <span class="badge bg-warning-subtle text-dark border">RY 2026–27</span>
+          </div>
+          <h3 class="h5 gold-text mb-1">Rotaract Club of SIMS</h3>
+          <p class="small text-secondary mb-3">Soundarya Institute of Management &amp; Science</p>
+        </div>
+        
+        <div class="px-4 text-center">
+          <a href="{{ url_for('letterhead') }}" class="d-block position-relative rounded overflow-hidden shadow">
+            <img src="{{ url_for('static', filename='images/official-letterhead.jpeg') }}" alt="Rotaract Club of SIMS Official Letterhead" class="img-fluid rounded border" style="max-height: 320px; object-fit: cover; object-position: top;">
+            <div class="position-absolute bottom-0 start-0 end-0 p-2 text-white bg-dark bg-opacity-75 small">
+              🔍 Click to View Full Letterhead &amp; Print
+            </div>
+          </a>
+        </div>
+
+        <div class="p-4">
+          <div class="p-3 rounded-3 mb-3" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(228,193,109,0.2);">
+            <div class="row g-2 text-center">
+              <div class="col-4 border-end border-secondary">
+                <small class="text-secondary d-block">Club ID</small>
+                <strong class="gold-text">8827610</strong>
+              </div>
+              <div class="col-4 border-end border-secondary">
+                <small class="text-secondary d-block">Zone</small>
+                <strong class="gold-text">Varuna</strong>
+              </div>
+              <div class="col-4">
+                <small class="text-secondary d-block">District</small>
+                <strong class="gold-text">RID 3192</strong>
+              </div>
+            </div>
+            <div class="mt-2 pt-2 border-top border-secondary text-center small text-light opacity-75">
+              Sponsor Club: <strong class="gold-text">{{ sponsor_rotary_club }}</strong>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column gap-2">
+            <a href="{{ url_for('letterhead') }}" class="btn btn-gold btn-sm">
+              📄 Open Official Letterhead Page
+            </a>
+            <button type="button" class="btn btn-outline-light btn-sm" id="btnQuickLetterExchange">
+              ✉ Quick Pre-Fill Letterhead Exchange
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info Card -->
+      <div class="p-4 rounded-4 bg-light border">
+        <h5 class="h6 fw-bold mb-3 gold-ink">Official Contact Handles</h5>
+        <p class="small text-secondary mb-2">
+          <strong>Email:</strong> <a href="mailto:rotaractsoundaryainstitute@gmail.com" class="text-dark">rotaractsoundaryainstitute@gmail.com</a>
+        </p>
+        <p class="small text-secondary mb-0">
+          <strong>Instagram:</strong> <a href="https://instagram.com/rotaractclub_sims" target="_blank" class="text-dark">@rotaractclub_sims</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Collaboration Form -->
+    <div class="col-lg-7">
+      <div class="form-panel w-100">
+        <span class="eyebrow dark-eyebrow">CONNECT WITH US</span>
+        <h2>Collaboration &amp; Letter Exchange</h2>
+        <p class="text-secondary small mb-4">
+          Whether you represent a fellow Rotaract club seeking a Letterhead Exchange, joint community service project, or guest speaker engagement, we would love to connect.
+        </p>
+        
+        <form method="post" id="collabForm">
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.club_name.id }}">{{ form.club_name.label.text }} *</label>
+            {{ form.club_name(class_="form-control", placeholder="e.g. Rotaract Club of Bangalore Central, RID 3192") }}
+            {% for error in form.club_name.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label" for="{{ form.contact_name.id }}">{{ form.contact_name.label.text }} *</label>
+              {{ form.contact_name(class_="form-control", placeholder="e.g. Rtr. Name, President / ISD") }}
+              {% for error in form.contact_name.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="{{ form.email.id }}">{{ form.email.label.text }} *</label>
+              {{ form.email(class_="form-control", placeholder="official-club@domain.com") }}
+              {% for error in form.email.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.request_type.id }}">{{ form.request_type.label.text }} *</label>
+            {{ form.request_type(class_="form-select", id="requestTypeSelect") }}
+            {% for error in form.request_type.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="{{ form.message.id }}">{{ form.message.label.text }} *</label>
+            {{ form.message(class_="form-control", rows=5, id="messageTextArea", placeholder="Tell us about your proposal or letterhead exchange greetings...") }}
+            {% for error in form.message.errors %}<div class="field-error">{{ error }}</div>{% endfor %}
+          </div>
+
+          {{ form.submit(class_="btn btn-gold w-100 py-2 fw-bold") }}
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const select = document.getElementById('requestTypeSelect');
+  const messageArea = document.getElementById('messageTextArea');
+  const quickBtn = document.getElementById('btnQuickLetterExchange');
+  const urlParams = new URLSearchParams(window.location.search);
+
+  function applyLetterheadPreset() {
+    if (select) {
+      for (let option of select.options) {
+        if (option.value === 'Letter exchange') {
+          select.value = option.value;
+          break;
+        }
+      }
+    }
+    if (messageArea && (!messageArea.value || messageArea.value.trim() === '')) {
+      messageArea.value = "Greetings President Rtr. Kishor R and the Board of Directors of Rotaract Club of SIMS!\n\nWe from our Rotaract club would be honored to conduct an official Letterhead Exchange with your esteemed club. Please share your letterhead and let us know how we can collaborate.";
+    }
+    messageArea.focus();
+  }
+
+  if (urlParams.get('type') === 'letterhead') {
+    applyLetterheadPreset();
+  }
+
+  if (quickBtn) {
+    quickBtn.addEventListener('click', function() {
+      applyLetterheadPreset();
+    });
+  }
+});
+</script>
+{% endblock %}
