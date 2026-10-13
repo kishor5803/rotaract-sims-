@@ -1,7 +1,7 @@
 services:
   - type: web
-    name: rotaract-sims-website
-    env: python
+    name: asthra-rotaract-sims
+    runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
