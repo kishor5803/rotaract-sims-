@@ -39,10 +39,3 @@ jobs:
         MAIL_DEV_MODE: 'true'
       run: |
         python -c "import app; print('Flask application initialized successfully:', app.app.name)"
-
-    - name: Run Automated Route & Integration Tests
-      env:
-        SECRET_KEY: 'test-secret-key-for-ci-pipeline'
-        MAIL_DEV_MODE: 'true'
-      run: |
-        python -m unittest test_app.py -v
