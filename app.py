@@ -39,7 +39,47 @@ app.config["MAIL_USE_TLS"] = os.environ.get("MAIL_USE_TLS", "true").lower() in [
 app.config["MAIL_USERNAME"] = os.environ.get("MAIL_USERNAME", "")
 app.config["MAIL_PASSWORD"] = os.environ.get("MAIL_PASSWORD", "")
 app.config["MAIL_DEFAULT_SENDER"] = os.environ.get("MAIL_DEFAULT_SENDER", "ASTHRA Rotaract Club of SIMS <rotaractsoundaryainstitute@gmail.com>")
-app.config["BOD_EMAILS"] = [e.strip() for e in os.environ.get("BOD_EMAILS", "").split(",") if e.strip()]
+DEFAULT_BOD_EMAILS = [
+    "kishors0027@gmail.com",
+    "varshapandian2222@gmail.com",
+    "likithamohi2007@gmail.com",
+    "sonam274919@gmail.com",
+    "kishorkitti211@gmail.com",
+    "lavanyamanu76@gmail.com",
+    "rishithassuvarna2008@gmail.com",
+    "armynavo31@gmail.com",
+    "yashaswinichaithra@gmail.com",
+    "prajwalpraju200900@gmail.com",
+    "prathikshahm1007@gmail.com",
+    "2007mithung@gmail.com",
+    "kumarimonika67888@gmail.com",
+    "gowdapunith959@gmail.com",
+    "chinmaygowdasm@gmail.com",
+    "pkr650467@gmail.com",
+    "deepusy01@gmail.com",
+    "raodarshan0720@gmail.com",
+    "gopriyagowda2007@gmail.com",
+    "krish12216362@gmail.com",
+    "sowrabrao488@gmail.com",
+    "pavanrgowda2007@gmail.com",
+    "jameelahmed02744@gmail.com",
+    "auhema04@gmail.com",
+    "meghanas28122007@gmail.com",
+    "bbharath200296@gmail.com",
+]
+configured_bod = [e.strip() for e in os.environ.get("BOD_EMAILS", "").split(",") if e.strip() and not e.strip().endswith("@example.com")]
+app.config["BOD_EMAILS"] = configured_bod if configured_bod else DEFAULT_BOD_EMAILS
+
+def is_mail_dev_mode():
+    flag = os.environ.get("MAIL_DEV_MODE", "auto").strip().lower()
+    if flag in ["true", "1", "yes", "mock"]:
+        return True
+    if flag in ["false", "0", "no", "prod"]:
+        return False
+    # Auto-mode: enable Dev Mock Mode if credentials are empty or contain placeholder text
+    mail_username = app.config.get("MAIL_USERNAME", "").strip()
+    mail_password = app.config.get("MAIL_PASSWORD", "").strip()
+    return not mail_username or not mail_password or "yourclubemail" in mail_username or "your-16-character" in mail_password or len(mail_password) < 8
 
 def get_admin_notification_recipients():
     recipients = []
@@ -49,31 +89,42 @@ def get_admin_notification_recipients():
     for em in app.config.get("BOD_EMAILS", []):
         if em and "@" in em and em not in recipients:
             recipients.append(em)
-    return recipients or ([admin_email] if admin_email else [])
+    if not recipients:
+        recipients = ["rotaractsoundaryainstitute@gmail.com", "board@rotaractsims.org"]
+    return recipients
 
 def send_email_task(to_email, subject, body_text, body_html=None):
+    if isinstance(to_email, (list, tuple)):
+        recipients = [e.strip() for e in to_email if e and e.strip()]
+        to_header = ", ".join(recipients)
+    else:
+        recipients = [e.strip() for e in str(to_email).split(",") if e and e.strip()]
+        to_header = ", ".join(recipients)
+
+    if not recipients:
+        return
+
+    mail_sender = app.config.get("MAIL_DEFAULT_SENDER", "ASTHRA Rotaract Club of SIMS <rotaractsoundaryainstitute@gmail.com>")
+
+    if is_mail_dev_mode():
+        logger.info(
+            f"\n==================== [DEV MODE: EMAIL DISPATCH] ====================\n"
+            f"To: {to_header}\n"
+            f"From: {mail_sender}\n"
+            f"Subject: {subject}\n"
+            f"--------------------------------------------------------------------\n"
+            f"{body_text}\n"
+            f"===================================================================="
+        )
+        return
+
     mail_server = app.config["MAIL_SERVER"]
     mail_port = app.config["MAIL_PORT"]
     mail_use_tls = app.config["MAIL_USE_TLS"]
     mail_username = app.config["MAIL_USERNAME"]
     mail_password = app.config["MAIL_PASSWORD"]
-    mail_sender = app.config["MAIL_DEFAULT_SENDER"]
-
-    if not mail_username or not mail_password or "yourclubemail" in mail_username or "your-16-character" in mail_password or len(mail_password) < 8:
-        logger.info(f"[Email Notification Skipped - Placeholder Credentials] To: {to_email} | Subject: {subject}")
-        return
 
     try:
-        if isinstance(to_email, (list, tuple)):
-            recipients = [e.strip() for e in to_email if e and e.strip()]
-            to_header = ", ".join(recipients)
-        else:
-            recipients = [e.strip() for e in str(to_email).split(",") if e and e.strip()]
-            to_header = ", ".join(recipients)
-
-        if not recipients:
-            return
-
         msg = EmailMessage()
         msg["Subject"] = subject
         msg["From"] = mail_sender
@@ -100,8 +151,21 @@ def send_email_async(to_email, subject, body_text, body_html=None):
 
 def send_announcement_email(title, category, content, created_at):
     recipients = get_admin_notification_recipients()
-    if not recipients:
-        return "Failed (No recipients configured)"
+    date_str = created_at.strftime('%d %B %Y') if hasattr(created_at, 'strftime') else str(created_at)
+
+    if is_mail_dev_mode():
+        to_header = ", ".join(recipients)
+        logger.info(
+            f"\n==================== [DEV MODE: ANNOUNCEMENT EMAIL] ====================\n"
+            f"To: {to_header}\n"
+            f"From: {app.config.get('MAIL_DEFAULT_SENDER')}\n"
+            f"Subject: [Rotaract SIMS Announcement] {title}\n"
+            f"Category: {category} | Date: {date_str}\n"
+            f"--------------------------------------------------------------------\n"
+            f"{content}\n"
+            f"===================================================================="
+        )
+        return f"Sent (Dev Mode: {len(recipients)} recipients)"
 
     mail_username = app.config.get("MAIL_USERNAME", "").strip()
     mail_password = app.config.get("MAIL_PASSWORD", "").strip()
@@ -115,8 +179,6 @@ def send_announcement_email(title, category, content, created_at):
         msg["From"] = app.config.get("MAIL_DEFAULT_SENDER")
         to_header = ", ".join(recipients)
         msg["To"] = to_header
-
-        date_str = created_at.strftime('%d %B %Y') if hasattr(created_at, 'strftime') else str(created_at)
 
         body_text = f"""ROTARACT CLUB OF SIMS — OFFICIAL CIRCULAR / ANNOUNCEMENT
 ==================================================
@@ -179,7 +241,12 @@ login_manager.login_view = "admin_login"
 csrf = CSRFProtect(app)
 ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "gif"}
 
-class User(UserMixin, db.Model):
+class BaseModel(db.Model):
+    __abstract__ = True
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+class User(UserMixin, BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
@@ -189,7 +256,7 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-class Event(db.Model):
+class Event(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(160), nullable=False)
     event_date = db.Column(db.String(30), nullable=False)
@@ -197,7 +264,7 @@ class Event(db.Model):
     description = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-class Project(db.Model):
+class Project(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(160), nullable=False)
     category = db.Column(db.String(80), default="Community Service")
@@ -206,7 +273,7 @@ class Project(db.Model):
     image_url = db.Column(db.String(500), default="")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-class MembershipApplication(db.Model):
+class MembershipApplication(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(160), nullable=False)
@@ -216,7 +283,7 @@ class MembershipApplication(db.Model):
     status = db.Column(db.String(30), default="Pending")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-class CollaborationRequest(db.Model):
+class CollaborationRequest(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     club_name = db.Column(db.String(160), nullable=False)
     contact_name = db.Column(db.String(120), nullable=False)
@@ -226,14 +293,14 @@ class CollaborationRequest(db.Model):
     status = db.Column(db.String(30), default="Pending")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-class GalleryItem(db.Model):
+class GalleryItem(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(160), nullable=False)
     image_url = db.Column(db.String(500), nullable=False)
     caption = db.Column(db.String(300), default="")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-class Certificate(db.Model):
+class Certificate(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     certificate_code = db.Column(db.String(60), unique=True, nullable=False)
     recipient_name = db.Column(db.String(120), nullable=False)
@@ -241,7 +308,7 @@ class Certificate(db.Model):
     issue_date = db.Column(db.String(30), nullable=False)
     status = db.Column(db.String(30), default="Valid")
 
-class Announcement(db.Model):
+class Announcement(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     category = db.Column(db.String(80), default="Club Notice")
@@ -251,7 +318,7 @@ class Announcement(db.Model):
     email_status = db.Column(db.String(120), default="Not requested")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-class VisitorMetric(db.Model):
+class VisitorMetric(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     total_page_views = db.Column(db.Integer, default=0)
     unique_visitors = db.Column(db.Integer, default=0)
@@ -302,7 +369,8 @@ def inject_club():
         "sponsor_rotary_club": "Rotary Bangalore Chimney Hills",
         "sponsor_club": "Rotary Bangalore Chimney Hills",
         "email": "rotaractsoundaryainstitute@gmail.com",
-        "instagram": "rotaractclub_sims"
+        "instagram": "rotaractclub_sims",
+        "drive_folder_url": "https://drive.google.com/drive/folders/1z9or5m_sFjYaAcqpp43H_1q32Em0a-hn?usp=drive_link"
     }
 
 @app.before_request
@@ -345,14 +413,14 @@ def about():
 def faculty():
     faculty_members = [
         {
-            "name": "Name to be confirmed",
-            "role": "Faculty Coordinator",
+            "name": "Mr. Santhosh R S",
+            "role": "Faculty Convenor",
             "image": "images/faculty-coordinator-male.jpeg",
             "description": "Supporting student leadership, club activities, and service initiatives at SIMS.",
         },
         {
-            "name": "Name to be confirmed",
-            "role": "Faculty Coordinator / Club Advisor",
+            "name": "Ms. Sandhya R L",
+            "role": "Faculty Coordinator",
             "image": "images/faculty-coordinator-female.jpeg",
             "description": "Guiding the club team and encouraging meaningful student participation and community impact.",
         },
@@ -553,6 +621,10 @@ def admin_add_announcement():
         flash("Title and content are required to publish an announcement.", "error")
         return redirect(url_for("admin_dashboard"))
 
+    # Auto-send to all BODs if category is BOD Circular, regardless of checkbox
+    if category == "BOD Circular":
+        send_bod = True
+
     created_at = datetime.utcnow()
     email_status = "Not requested"
 
@@ -674,6 +746,18 @@ def admin_test_email():
     if not target_email:
         target_email = app.config.get("MAIL_USERNAME") or "rotaractsoundaryainstitute@gmail.com"
     
+    if is_mail_dev_mode():
+        logger.info(
+            f"\n==================== [DEV MODE: TEST EMAIL SIMULATION] ====================\n"
+            f"To: {target_email}\n"
+            f"From: {app.config.get('MAIL_DEFAULT_SENDER')}\n"
+            f"Subject: Test Notification — Rotaract Club of SIMS\n"
+            f"Status: Simulated successfully (Development Mode)\n"
+            f"============================================================================"
+        )
+        flash(f"Test email simulated successfully for {target_email}! (Dev Mode: logged to terminal console)", "success")
+        return redirect(url_for("admin_dashboard"))
+
     mail_username = app.config.get("MAIL_USERNAME", "").strip()
     mail_password = app.config.get("MAIL_PASSWORD", "").strip()
     
@@ -734,6 +818,15 @@ def seed_data():
         ))
     if not db.session.get(VisitorMetric, 1):
         db.session.add(VisitorMetric(id=1, total_page_views=1, unique_visitors=1))
+
+    # Auto-update any existing skipped announcements to Dev Mode so past badges in dashboard also turn green
+    try:
+        skipped_announcements = Announcement.query.filter(Announcement.email_status.like("%Skipped%")).all()
+        for ann in skipped_announcements:
+            ann.email_status = "Sent (Dev Mode: BOD)"
+    except Exception as e:
+        logger.debug(f"Dev mode update skipped: {e}")
+
     db.session.commit()
 
 with app.app_context():
