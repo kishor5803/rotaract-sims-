@@ -39,7 +39,7 @@ class RotaractWebsiteTestCase(unittest.TestCase):
     def test_gallery_page(self):
         response = self.client.get("/gallery")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(b"Google Drive" in response.data)
+        self.assertTrue(b"CLUB ARCHIVE" in response.data)
 
     def test_achievements_page(self):
         response = self.client.get("/achievements")

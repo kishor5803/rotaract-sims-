@@ -33,3 +33,6 @@ Thumbs.db
 # Backup folders
 ASTHRA_Rotaract_SIMS_*
 
+# Nested project copy
+Project/
+
